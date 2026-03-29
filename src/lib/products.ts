@@ -121,7 +121,7 @@ export const products: Product[] = [
     name: "RPM 5 Pro Kit",
     brand: "SMOK",
     category: "Devices",
-    badge: null,
+    badge: "null",
     description: "80W box mod with 2000mAh battery and RPM pod system.",
     longDescription:
       "The SMOK RPM 5 Pro is a powerful yet compact box mod delivering up to 80W output with an integrated 2000mAh battery. Features a 0.96\" colour display, adjustable wattage, and is compatible with the full RPM coil range. Perfect for cloud chasers who want portability without compromise.",
@@ -177,7 +177,7 @@ export const products: Product[] = [
     name: "Ultra 2500 Disposable",
     brand: "Allo",
     category: "Disposables",
-    badge: null,
+    badge: "null",
     description: "Canadian-made. 2500 puffs of clean, crisp flavour.",
     longDescription:
       "Allo's Ultra 2500 is proudly Canadian-made and compliance-ready. 2500 puffs of clean, consistent flavour with a 1000mAh rechargeable battery and USB-C port. Available in a curated range of Canadian-favourite flavours.",
@@ -204,7 +204,7 @@ export const products: Product[] = [
     name: "ePod 2 Starter Kit",
     brand: "Vuse",
     category: "Pods",
-    badge: null,
+    badge: "null",
     description: "Slim, satisfying, and regulated. Canada's #1 pod vape.",
     longDescription:
       "The Vuse ePod 2 is a closed pod system known for its ease of use and consistent flavour delivery. Simply click in a pod and vape — no buttons, no settings. Charges quickly via USB-C and features SmartDraw™ technology that senses your inhale.",
@@ -230,7 +230,7 @@ export const products: Product[] = [
     name: "Pro Cleaning Kit",
     brand: "DRIPD",
     category: "Accessories",
-    badge: null,
+    badge: "null",
     description: "Everything you need to keep your device pristine.",
     longDescription:
       "Our DRIPD Pro Cleaning Kit includes cleaning brushes, cotton swabs, isopropyl wipes, a coil-change tool, and a microfibre cloth — all the essentials to maintain your device and extend its lifespan.",
