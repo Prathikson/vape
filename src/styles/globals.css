@@ -1,0 +1,486 @@
+@import url('https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300..800;1,300..800&family=TASA+Orbiter:wght@400..800&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --black: #0a0a0a;
+  --white: #f5f5f0;
+  --green: #b8f424;
+  --green-dark: #8cc918;
+  --gray-900: #111110;
+  --gray-800: #1c1c1a;
+  --gray-700: #2a2a27;
+  --gray-600: #3d3d39;
+  --gray-400: #8a8a82;
+  --gray-200: #d4d4cc;
+  --radius-pill: 9999px;
+  --radius-card: 1.25rem;
+  --radius-lg: 0.75rem;
+--font-display: "TASA Orbiter", sans-serif;
+--font-body: "Host Grotesk", sans-serif;
+  --nav-h: 72px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: auto; /* Lenis handles this */
+  font-family: var(--font-body);
+  background: var(--black);
+  color: var(--white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── PRELOADER ─────────────────────────────────────────────── */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: all;
+}
+
+.preloader.hidden {
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease 0.2s;
+}
+
+.preloader__svg text {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 96px;
+  letter-spacing: -0.04em;
+  fill: none;
+  stroke: var(--white);
+  stroke-width: 1.5;
+  stroke-dasharray: 1200;
+  stroke-dashoffset: 1200;
+  animation: drawStroke 1.4s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+}
+
+.preloader__svg text.fill {
+  stroke: none;
+  fill: var(--white);
+  stroke-dasharray: none;
+  stroke-dashoffset: 0;
+  opacity: 0;
+  animation: fillText 0.5s ease 1.4s forwards;
+}
+
+.preloader__line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background: var(--green);
+  width: 0%;
+  animation: loadLine 1.6s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+}
+
+@keyframes drawStroke {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes fillText {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes loadLine {
+  to {
+    width: 100%;
+  }
+}
+
+/* ── FLOATING NAV ─────────────────────────────────────────── */
+.nav-pill {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(245, 245, 240, 0.08);
+  border-radius: var(--radius-pill);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  width: calc(100% - 40px);
+  max-width: 900px;
+}
+
+.nav-pill--scrolled {
+  background: rgba(10, 10, 10, 0.95);
+  border-color: rgba(245, 245, 240, 0.12);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+/* ── SCROLLING TAGS MARQUEE ────────────────────────────────── */
+.marquee-track {
+  display: flex;
+  gap: 12px;
+  animation: marqueeScroll 30s linear infinite;
+  will-change: transform;
+  width: max-content;
+}
+
+.marquee-track--reverse {
+  animation-direction: reverse;
+  animation-duration: 25s;
+}
+
+.marquee-track--slow {
+  animation-duration: 40s;
+}
+
+@keyframes marqueeScroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-wrap {
+  overflow: hidden;
+  display: flex;
+}
+
+/* ── SERVICES LIST (like Vertdure) ─────────────────────────── */
+.category-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid rgba(245, 245, 240, 0.08);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.category-row:hover {
+  background: rgba(184, 244, 36, 0.04);
+}
+
+/* ── PRODUCT CARDS ─────────────────────────────────────────── */
+.product-card {
+  position: relative;
+  background: var(--gray-800);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+}
+
+.product-card__badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: var(--green);
+  color: var(--black);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  z-index: 2;
+}
+
+/* ── MODAL ─────────────────────────────────────────────────── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(6px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  animation: modalIn 0.3s ease forwards;
+}
+
+.modal-content {
+  background: var(--gray-900);
+  border: 1px solid rgba(245, 245, 240, 0.08);
+  border-radius: var(--radius-card);
+  max-width: 860px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  transform: scale(0.95) translateY(20px);
+  animation: modalSlide 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes modalIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalSlide {
+  to {
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* ── CART SIDEBAR ──────────────────────────────────────────── */
+.cart-sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 420px;
+  height: 100vh;
+  background: var(--gray-900);
+  border-left: 1px solid rgba(245, 245, 240, 0.08);
+  z-index: 2100;
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-sidebar.open {
+  transform: translateX(0);
+}
+
+@media (max-width: 480px) {
+  .cart-sidebar {
+    width: 100%;
+  }
+}
+
+/* ── BTN STYLES ────────────────────────────────────────────── */
+.btn-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  border: none;
+  transition: all 0.25s ease;
+  text-decoration: none;
+}
+
+.btn-pill--green {
+  background: var(--green);
+  color: var(--black);
+}
+
+.btn-pill--green:hover {
+  background: var(--green-dark);
+  transform: scale(1.03);
+}
+
+.btn-pill--outline {
+  background: transparent;
+  color: var(--white);
+  border: 1px solid rgba(245, 245, 240, 0.25);
+}
+
+.btn-pill--outline:hover {
+  border-color: var(--white);
+  background: rgba(245, 245, 240, 0.06);
+}
+
+.btn-pill--dark {
+  background: var(--gray-700);
+  color: var(--white);
+}
+
+.btn-pill--dark:hover {
+  background: var(--gray-600);
+}
+
+/* ── TAG CHIPS ─────────────────────────────────────────────── */
+.tag-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 18px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.875rem;
+  white-space: nowrap;
+  transition: transform 0.2s;
+}
+
+.tag-chip--light {
+  background: var(--gray-700);
+  color: var(--white);
+}
+
+.tag-chip--green {
+  background: var(--green);
+  color: var(--black);
+}
+
+.tag-chip--yellow {
+  background: #fbbf24;
+  color: var(--black);
+}
+
+.tag-chip--white {
+  background: var(--white);
+  color: var(--black);
+}
+
+/* ── FAQ ───────────────────────────────────────────────────── */
+.faq-item {
+  border-bottom: 1px solid rgba(245, 245, 240, 0.08);
+  overflow: hidden;
+}
+
+.faq-item__trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 0;
+  background: none;
+  border: none;
+  color: var(--white);
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  gap: 20px;
+}
+
+.faq-item__body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.faq-item__body.open {
+  max-height: 400px;
+}
+
+.faq-item__content {
+  padding-bottom: 1.5rem;
+  color: var(--gray-400);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+/* ── TESTIMONIALS ──────────────────────────────────────────── */
+.testimonial-card {
+  background: var(--gray-800);
+  border: 1px solid rgba(245, 245, 240, 0.06);
+  border-radius: var(--radius-card);
+  padding: 2rem;
+}
+
+/* ── SECTION UTILITIES ─────────────────────────────────────── */
+.section-label {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gray-400);
+  margin-bottom: 1rem;
+}
+
+.display-xl {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.display-lg {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.italic-serif {
+  font-style: italic;
+  font-weight: 300;
+}
+
+/* ── SCROLL ANIMATIONS ─────────────────────────────────────── */
+.gsap-reveal {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.gsap-reveal-left {
+  opacity: 0;
+  transform: translateX(-40px);
+}
+
+/* ── SCROLLBAR ─────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--black);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gray-600);
+  border-radius: 2px;
+}
+
+/* ── FOOTER ────────────────────────────────────────────────── */
+.footer-big-text {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  mix-blend-mode: overlay;
+}
+
+/* ── MOBILE ────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .nav-pill {
+    width: calc(100% - 24px);
+    top: 12px;
+  }
+
+  .preloader__svg text {
+    font-size: 64px;
+  }
+}
